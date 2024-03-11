@@ -60,7 +60,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = (props) => {
   const points = Array.from({ length: dimensions.width }, (_, i) => wavePath(i)).join(' ');
 
   return (
-    <div style={{ display: 'inline-block' }} ref={myDivRef} className={`${className} animated-wave`} aria-label="Animated wave">
+    <div style={{ display: 'inline-block' }} ref={myDivRef} className={(props.className===''?'animated-wave':props.className)} aria-label="Animated wave">
       <svg width={dimensions.width} height={dimensions.height}>
         {props.children}
         <path d={`M0 ${dimensions.height} ${points} L${dimensions.width} ${dimensions.height}`} fill={props.fill || '#000000'} />

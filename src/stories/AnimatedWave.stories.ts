@@ -34,7 +34,8 @@ export const AnimatedWaveStory:story = {
         phase : 10,
         amplitude :60,
         speed : 10,
-        frequency :0.0005
+        frequency :0.0005,
+        className:''
     }
 }
 
