@@ -9,12 +9,12 @@ const meta:Meta<typeof AnimatedWave> = {
         // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
         layout: "centered",
         backgrounds: {
-            default: 'nice_blue',
-            values: [
-              { name: 'nice_blue', value: '#00aced' },
-              { name: 'dark_blue', value: '#3b5998' },
-            ],
-          },
+          default: 'twitter',
+          values: [
+            { name: 'twitter', value: '#00aced' },
+            { name: 'facebook', value: '#3b5998' },
+          ],
+        }
 
     },
     // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
