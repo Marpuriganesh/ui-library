@@ -1,0 +1,15 @@
+.animated-wave{
+
+    width:60vw;
+    height: 70vh;
+    overflow: hidden;
+    /* pointer-events: none; */
+
+    
+}
+
+.animated-wave svg{
+    width: 100%;
+    height: 100%;
+}
+
