@@ -6,11 +6,12 @@ interface CustomInputProps {
   className?: string;
   placeholder: string;
   type: string;
+  exportInputValue:(value:string)=>void;
 }
 
-const CustomInput: React.FC<CustomInputProps> = (props,...rest_props) => {
+const CustomInput: React.FC<CustomInputProps> = (props) => {
 
-  const {className=''} = props
+  const {className='',exportInputValue} = props
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -26,6 +27,9 @@ const CustomInput: React.FC<CustomInputProps> = (props,...rest_props) => {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+    if(exportInputValue!==undefined){
+      exportInputValue(e.target.value)
+    }
   };
 
   return (
@@ -38,7 +42,6 @@ const CustomInput: React.FC<CustomInputProps> = (props,...rest_props) => {
         onBlur={handleBlur}
         onChange={handleInputChange}
         className={`${isFocused || inputValue ? 'input-focus' : ''}`}
-        {...rest_props}
       />
       <div className='bottom-line'></div>
     </div>

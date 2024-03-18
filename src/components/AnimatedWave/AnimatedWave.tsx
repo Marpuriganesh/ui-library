@@ -12,7 +12,7 @@ interface AnimatedWaveProps {
     fill?: string;
 }
 
-const AnimatedWave: React.FC<AnimatedWaveProps> = ({ phase = 10, amplitude = 60, speed = 10, frequency = 0.0005, className='',fill,children,...props }) => {
+const AnimatedWave: React.FC<AnimatedWaveProps> = ({ phase = 10, amplitude = 60, speed = 10, frequency = 0.0005, className='',fill,children}) => {
   const myDivRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   const [value, setValue] = useState<number>(0);
@@ -59,7 +59,7 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = ({ phase = 10, amplitude = 60,
   const points = Array.from({ length: dimensions.width }, (_, i) => wavePath(i)).join(' ');
 
   return (
-    <div style={{ display: 'inline-block' }} ref={myDivRef} className={(className===''?'animated-wave':className)} aria-label="Animated wave" {...props}>
+    <div style={{ display: 'inline-block' }} ref={myDivRef} className={(className===''?'animated-wave':className)} aria-label="Animated wave" >
       <svg width={dimensions.width} height={dimensions.height}>
         {children}
         <path d={`M0 ${dimensions.height} ${points} L${dimensions.width} ${dimensions.height}`} fill={fill || '#000000'} />
