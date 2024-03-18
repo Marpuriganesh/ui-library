@@ -12,8 +12,7 @@ interface AnimatedWaveProps {
     fill?: string;
 }
 
-const AnimatedWave: React.FC<AnimatedWaveProps> = (props) => {
-  const { phase = 10, amplitude = 60, speed = 10, frequency = 0.0005, className='' } = props;
+const AnimatedWave: React.FC<AnimatedWaveProps> = ({ phase = 10, amplitude = 60, speed = 10, frequency = 0.0005, className='',fill,children,...props }) => {
   const myDivRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   const [value, setValue] = useState<number>(0);
@@ -60,22 +59,15 @@ const AnimatedWave: React.FC<AnimatedWaveProps> = (props) => {
   const points = Array.from({ length: dimensions.width }, (_, i) => wavePath(i)).join(' ');
 
   return (
-    <div style={{ display: 'inline-block' }} ref={myDivRef} className={(props.className===''?'animated-wave':props.className)} aria-label="Animated wave">
+    <div style={{ display: 'inline-block' }} ref={myDivRef} className={(className===''?'animated-wave':className)} aria-label="Animated wave" {...props}>
       <svg width={dimensions.width} height={dimensions.height}>
-        {props.children}
-        <path d={`M0 ${dimensions.height} ${points} L${dimensions.width} ${dimensions.height}`} fill={props.fill || '#000000'} />
+        {children}
+        <path d={`M0 ${dimensions.height} ${points} L${dimensions.width} ${dimensions.height}`} fill={fill || '#000000'} />
       </svg>
     </div>
   );
 };
 
-AnimatedWave.defaultProps = {
-  phase:10,
-  amplitude : 60,
-  speed : 10,
-  frequency : 0.0005,
-  className:'',
-  fill:'#555555'
-}
+
 
 export default AnimatedWave;

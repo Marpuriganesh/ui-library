@@ -40,7 +40,7 @@ interface EmotionButtonProps {
   setValue?: number;
 }
 
-const EmotionButton: React.FC<EmotionButtonProps> = ({ emotion_value, className, setEmotion, useLabel, setValue = 0 }) => {
+const EmotionButton: React.FC<EmotionButtonProps> = ({ emotion_value='😊', className='', setEmotion, useLabel=false, setValue = 0 }) => {
   const [drag, setDrag] = useState(false);
   const [progress, setProgress] = useState(setValue);
   const [showLabel, setShowLabel] = useState(false);
@@ -133,11 +133,5 @@ const EmotionButton: React.FC<EmotionButtonProps> = ({ emotion_value, className,
 };
 
 
-EmotionButton.defaultProps = {
-  emotion_value: '😊',
-  className: '',
-  useLabel: false,
-  setValue: 0
-};
 
 export default EmotionButton;

@@ -8,9 +8,9 @@ interface CustomInputProps {
   type: string;
 }
 
-const CustomInput: React.FC<CustomInputProps> = (props) => {
+const CustomInput: React.FC<CustomInputProps> = (props,...rest_props) => {
 
-    const {className=''} = props
+  const {className=''} = props
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -38,6 +38,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
         onBlur={handleBlur}
         onChange={handleInputChange}
         className={`${isFocused || inputValue ? 'input-focus' : ''}`}
+        {...rest_props}
       />
       <div className='bottom-line'></div>
     </div>
