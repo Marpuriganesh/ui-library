@@ -41,7 +41,8 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleInputChange}
-        className={`${isFocused || inputValue ? 'input-focus' : ''}`}
+        required
+        className={`input ${isFocused || inputValue ? 'input-focus' : ''}`}
       />
       <div className='bottom-line'></div>
     </div>

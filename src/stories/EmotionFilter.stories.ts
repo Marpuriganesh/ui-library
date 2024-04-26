@@ -1,9 +1,9 @@
-import { CustomInput } from "../components";
+import { EmotionFilter } from "../components";
 import { Meta, StoryObj } from "@storybook/react";
 
-const meta: Meta<typeof CustomInput> = {
-  title: "Components/CustomInput",
-  component: CustomInput,
+const meta: Meta<typeof EmotionFilter> = {
+  title: "Components/EmotionFilter",
+  component: EmotionFilter,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
@@ -16,14 +16,12 @@ const meta: Meta<typeof CustomInput> = {
     },
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof CustomInput>;
+} satisfies Meta<typeof EmotionFilter>;
 
 export default meta;
-type story = StoryObj<typeof CustomInput>;
 
-export const CustomInputStory: story = {
-  args: {
-    type: "password",
-    placeholder: "Password",
-  },
+type story = StoryObj<typeof EmotionFilter>;
+
+export const EmotionFilterStory: story = {
+  args: {},
 };
