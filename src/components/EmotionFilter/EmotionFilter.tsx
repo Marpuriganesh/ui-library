@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useRef, useEffect } from "react";
 import "./EmotionFilter.css";
 import axios from "axios";
-import {motion} from 'framer-motion';
+import { motion } from "framer-motion";
 
 interface FeelingItem {
   id: number;
@@ -18,7 +18,6 @@ const EmotionFilter: React.FC<Props> = ({ url }) => {
   const [inputValue, setInputValue] = useState("");
   const [pointer, setPointer] = useState<"none" | "stroke" | "auto">("none");
   const inputRef = useRef<HTMLInputElement>(null);
-  const [id, setId] = useState(0);
   const [feelings, setFeelings] = useState<FeelingItem[]>([]);
 
   useEffect(() => {
@@ -44,15 +43,6 @@ const EmotionFilter: React.FC<Props> = ({ url }) => {
     // Add a return statement here
     return undefined;
   }, []);
-
-
-
- 
-
-
-
-
-  
 
   const fetchEmotions = async (query: string): Promise<FeelingItem[]> => {
     try {
@@ -118,13 +108,9 @@ const EmotionFilter: React.FC<Props> = ({ url }) => {
             ref={inputRef}
             placeholder="feeling"
           />
-          <div
-            className="inner_container"
-            style={{ pointerEvents: pointer }}
-
-          >
+          <div className="inner_container" style={{ pointerEvents: pointer }}>
             {feelings.map((feeling, id) => (
-              <motion.div className="item" key={id} >
+              <motion.div className="item" key={id}>
                 <label>{feeling.feeling}</label>
               </motion.div>
             ))}
