@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useRef, useEffect } from "react";
+import React, { ChangeEvent, useState } from "react";
 import "./EmotionFilter.css";
 import axios from "axios";
 import { motion } from "framer-motion";
@@ -17,72 +17,54 @@ interface Props {
 const EmotionFilter: React.FC<Props> = ({ url }) => {
   const [inputValue, setInputValue] = useState("");
   const [pointer, setPointer] = useState<"none" | "stroke" | "auto">("none");
-  const inputRef = useRef<HTMLInputElement>(null);
   const [feelings, setFeelings] = useState<FeelingItem[]>([]);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.addEventListener("keydown", (event) => {
-        if (event.key === " ") {
-          event.preventDefault();
-          console.log("SpaceBar key was pressed!");
-          setInputValue("apple");
-          // Perform your desired action here
-        }
-      });
-
-      const input = inputRef.current;
-
-      return () => {
-        input.removeEventListener("keydown", () => {
-          console.log("event listener removed");
-        });
-      };
-    }
-
-    // Add a return statement here
-    return undefined;
-  }, []);
 
   const fetchEmotions = async (query: string): Promise<FeelingItem[]> => {
     try {
       const response = await axios.get(`${url}?q=${query}`);
-      const resultsArray = response.data.results;
-      // console.log(resultsArray); // Log the array of results
-
-      return resultsArray; // Return the array of results
+      const resultsArray = response.data;
+      return resultsArray;
     } catch (error) {
       console.error("Error fetching feelings:", error);
-      throw error; // Re-throw the error to propagate it further if needed
+      throw error;
     }
   };
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const value = event.target.value.toLowerCase();
-    setInputValue(value);
-
-    if (value.length > 0) {
-      fetchEmotions(value)
-        .then((resultsArray) => {
-          setFeelings(resultsArray);
-        })
-        .catch((error) => {
-          console.error("Error fetching emotions:", error);
-          // Handle error if needed
-        });
-    } else {
-      setFeelings([]);
+    const lastCharacter = value.charAt(value.length - 1);
+    if (lastCharacter === " ") {
+      console.log("spacebar pressed");
+      const feeling = feelings[0]?.feeling || "";
+      setInputValue(feeling);
+      return;
     }
+
+    setInputValue(value);
+    setFeelings([]);
+
+    // Check if the updated value is empty
+    if (value === "") {
+      setFeelings([]); // Clear the feelings state
+      return; // Exit early to avoid unnecessary API calls
+    }
+    // Call fetchEmotions with the updated input value
+    fetchEmotions(value)
+      .then((resultsArray) => {
+        setFeelings(resultsArray);
+        // console.log("feelings", resultsArray);
+      })
+      .catch((error) => {
+        console.error("Error fetching emotions:", error);
+      });
   }
 
   function handleOnFocus() {
-    // console.log("focus");
     setPointer("stroke");
   }
 
   function handleOnBlur() {
-    // console.log("blur");
-    // console.log(feelings);
+    setFeelings([]);
     setPointer("none");
   }
 
@@ -92,6 +74,7 @@ const EmotionFilter: React.FC<Props> = ({ url }) => {
         <span
           style={{
             color: inputValue.length > 0 ? "white" : "#ffffff62",
+            userSelect: "none",
           }}
         >
           #
@@ -105,15 +88,15 @@ const EmotionFilter: React.FC<Props> = ({ url }) => {
             onFocus={handleOnFocus}
             onBlur={handleOnBlur}
             value={inputValue}
-            ref={inputRef}
-            placeholder="feeling"
+            placeholder={"feeling"}
           />
           <div className="inner_container" style={{ pointerEvents: pointer }}>
-            {feelings.map((feeling, id) => (
-              <motion.div className="item" key={id}>
-                <label>{feeling.feeling}</label>
-              </motion.div>
-            ))}
+            {inputValue.length > 0 &&
+              feelings.map((feeling, id) => (
+                <motion.div className="item" key={id}>
+                  <label>{feeling.feeling}</label>
+                </motion.div>
+              ))}
           </div>
         </div>
       </div>
