@@ -9,7 +9,6 @@ interface FeelingItem {
   created_at: string;
   updated_at: string;
 }
-
 interface Props {
   url: string;
 }
