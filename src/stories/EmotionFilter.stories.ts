@@ -23,5 +23,5 @@ export default meta;
 type story = StoryObj<typeof EmotionFilter>;
 
 export const EmotionFilterStory: story = {
-  args: { url: "http://192.168.29.245:8000/api/feelings" },
+  args: { url: "https://django-full-text-search.vercel.app/api/feelings" },
 };
