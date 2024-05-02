@@ -5,7 +5,7 @@ import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
 import image from '@rollup/plugin-image';
 import { babel } from '@rollup/plugin-babel';
-import json from '@rollup/plugin-json';
+
 // @ts-ignore
 import packageJson from './package.json' assert {type:'json'};
 
@@ -32,7 +32,6 @@ export default [
       image(),
       postcss({ extensions: ['.css'], inject: true, extract: false }),
       babel({ babelHelpers: 'runtime', plugins:['@babel/plugin-transform-runtime'] }),
-      json(),
     ],
   },
   {

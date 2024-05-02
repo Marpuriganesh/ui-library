@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
 import "./EmotionFilter.css";
-import axios from "axios";
 import { motion } from "framer-motion";
 
 interface FeelingItem {
@@ -20,8 +19,13 @@ const EmotionFilter: React.FC<Props> = ({ url }) => {
 
   const fetchEmotions = async (query: string): Promise<FeelingItem[]> => {
     try {
-      const response = await axios.get(`${url}?q=${query}`);
-      const resultsArray = response.data;
+      const response = await fetch(`${url}?q=${query}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const resultsArray: FeelingItem[] = await response.json();
       return resultsArray;
     } catch (error) {
       console.error("Error fetching feelings:", error);
