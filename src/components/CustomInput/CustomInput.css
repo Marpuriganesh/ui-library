@@ -126,3 +126,8 @@ input:-webkit-autofill:focus {
   transition: opacity 0.5s ease-in-out;
   opacity: 0%;
 }
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}

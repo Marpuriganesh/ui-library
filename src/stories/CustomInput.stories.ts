@@ -25,5 +25,7 @@ export const CustomInputStory: story = {
   args: {
     type: "password",
     placeholder: "Password",
+    disabled: true,
+    spellCheck:true
   },
 };

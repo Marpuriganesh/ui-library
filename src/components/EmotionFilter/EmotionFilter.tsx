@@ -86,7 +86,7 @@ const EmotionFilter: React.FC<Props> = ({ url }) => {
           <input
             type="text"
             autoComplete="off"
-            autoCorrect="off"
+            spellCheck = "false"
             onChange={handleChange}
             onFocus={handleOnFocus}
             onBlur={handleOnBlur}
