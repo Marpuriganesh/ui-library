@@ -9,20 +9,35 @@ interface CustomInputProps {
   disabled?: boolean;
   autoComplete?: string;
   spellCheck?: boolean;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
-  const { className = "", exportInputValue, disabled = false,autoComplete="off",spellCheck=false } = props;
+  const {
+    className = "",
+    exportInputValue,
+    disabled = false,
+    autoComplete = "off",
+    spellCheck = false,
+  } = props;
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const handleFocus = () => {
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
+    if (props.onFocus) {
+      props.onFocus(event);
+    }
   };
 
-  const handleBlur = () => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     if (!inputValue) {
       setIsFocused(false);
+    }
+    if (props.onBlur) {
+      props.onBlur(event);
     }
   };
 
@@ -30,6 +45,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
     setInputValue(e.target.value);
     if (exportInputValue !== undefined) {
       exportInputValue(e.target.value);
+    }
+    if (props.onChange) {
+      props.onChange(e);
     }
   };
 
