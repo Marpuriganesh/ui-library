@@ -32,7 +32,7 @@ const EmotionImages: EmotionImagesType = {
 };
 
 interface EmotionButtonProps {
-  emotion_value?: string;
+  emotion_value?: "😊" | "😊" | "😡" | "😮" | "🤢" | "😨";
   className?: string;
   setEmotion?: (value: number) => void;
   useLabel?: boolean;
