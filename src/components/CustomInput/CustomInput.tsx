@@ -1,17 +1,19 @@
 import React, { useState, ChangeEvent } from "react";
 import "./CustomInput.css";
+import { Spinner } from "../Spinner";
 
 interface CustomInputProps {
   className?: string;
-  placeholder: string;
-  type: string;
-  exportInputValue: (value: string) => void;
+  placeholder?: string;
+  type?: string;
+  exportInputValue?: (value: string) => void;
   disabled?: boolean;
   autoComplete?: string;
   spellCheck?: boolean;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  loading?: boolean;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
@@ -21,6 +23,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
     disabled = false,
     autoComplete = "off",
     spellCheck = false,
+    type = "text",
+    placeholder = "Input",
+    loading = false,
   } = props;
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
@@ -55,9 +60,19 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
     <div
       className={`input-holder ${isFocused || inputValue ? "focused" : ""} ${className}`}
     >
-      <label>{props.placeholder}</label>
+      <label>
+        {placeholder}
+        {loading && (
+          <Spinner
+            center_radius={14}
+            count={12}
+            speed={1}
+            className="input_spinner"
+          />
+        )}
+      </label>
       <input
-        type={props.type}
+        type={type}
         value={inputValue}
         onFocus={handleFocus}
         onBlur={handleBlur}

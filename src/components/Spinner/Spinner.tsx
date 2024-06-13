@@ -3,10 +3,10 @@ import React from "react";
 import "./Spinner.css";
 
 const Spinner: React.FC<{
-  count: number;
-  speed: number;
-  center_radius: number;
-  className: string;
+  count?: number;
+  speed?: number;
+  center_radius?: number;
+  className?: string;
 }> = ({ count = 8, speed = 0.7, center_radius = 16, className = "" }) => {
   const divs = Array.from(
     { length: count },
