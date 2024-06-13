@@ -14,6 +14,7 @@ interface CustomInputProps {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   loading?: boolean;
+  initialValue?: string;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
@@ -26,9 +27,10 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
     type = "text",
     placeholder = "Input",
     loading = false,
+    initialValue = "",
   } = props;
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(initialValue);
 
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true);
