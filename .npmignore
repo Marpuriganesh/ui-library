@@ -11,3 +11,4 @@ src/
 .babelrc
 .storybook/
 .github/
+release.config.js
